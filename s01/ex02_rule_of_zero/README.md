@@ -1,0 +1,1 @@
+This exercise implements the same Buffer class from the previous one. Though, this Buffer class is better because basically all of its implementation comes from std::vector, a standard well documented, tested and optimized container.
