@@ -1,9 +1,10 @@
+#include "Buffer.hpp"
+
 #include <cstdio>
 #include <algorithm>
 #include <cassert>
 #include <vector>
 
-#include "Buffer.hpp"
 
 void	print(const Buffer& b) {
 	std::printf("Buffer of size: %zu\n", b.size());
@@ -17,7 +18,8 @@ int	main() {
 	std::printf("--- T1 ---\n");
 	{
 		Buffer a{ 4 };
-		a.data()[1] = 1;
+		for (uint8_t i = 0; static_cast<std::size_t>(i) < a.size(); i++)
+			a.data()[i] = i;
 		print(a);
 	}
 	std::printf("\n--- T2 ---\n");
@@ -37,19 +39,25 @@ int	main() {
 
 		Buffer b{ std::move(a) };
 
-		assert(b.data() == p && a.data() == nullptr && a.size() == 0);
+		assert(b.data() == p);
+		assert(a.data() == nullptr);
+		assert(a.size() == 0);
 	}
 	std::printf("\n--- T4 ---\n");
 	{
 		Buffer a{ 4 };
 		Buffer b{ 2 };
 
+		std::fill_n(a.data(), a.size(), 42);
+
 		b = a;
 
 		print(a);
 		print(b);
 
-		assert(a.size() == b.size() && a.data() != b.data() && a.data()[0] == b.data()[0]);
+		assert(a.size() == b.size());
+		assert(a.data() != b.data());
+		assert(a.data()[0] == b.data()[0]);
 	}
 	std::printf("\n--- T5 ---\n");
 	{
@@ -61,7 +69,8 @@ int	main() {
 		print(a);
 		print(b);
 
-		assert(a.size() == 0 && a.data() == nullptr);
+		assert(a.size() == 0);
+		assert(a.data() == nullptr);
 	}
 	std::printf("\n--- T6 ---\n");
 	{
@@ -81,7 +90,7 @@ int	main() {
 	{
 		std::vector<Buffer>	v;
 
-		for (int i = 0; i < 4; i++) {
+		for (std::size_t i = 0; i < 4; i++) {
 			v.push_back(Buffer(i));
 		}
 	}
@@ -89,8 +98,8 @@ int	main() {
 	{
 		std::vector<Buffer> v;
 
-		v.reserve(3);
-		for (int i = 0; i < 4; i++) {
+		v.reserve(4);
+		for (std::size_t i = 0; i < 4; i++) {
 			v.push_back(Buffer(i));
 		}
 	}

@@ -1,17 +1,95 @@
-T1: I predict everything will occur like expected. constructor for size 4, then a change in the first value and this being printed.
+Predictions of what will happen in each test case line by line.
 
-T2: I predict we'll see constructor for a and then copy constructor for b. Assert will catch nothing
+T1:
+	Constrctor for size 4
+	Print Buffer of size 4
+	Destructor of size 4
 
-T3: Normal constructor with size 4 for a then move constructor for b. 
+T2:
+	Constructor for size 4 (a)
+	Copy constructor for size 4 (b)
+	Print Buffer of size 4 (a)
+	Print Buffer of size 4 (b)
+	Destructor for size 4 (b)
+	Destructor for size 4 (a)
 
-T4: Normal constructors for a and b. Then copy assignment operator for b (size 4)
+T3:
+	Constructor for size 4 (a)
+	Move constructor for size 4 (b)
+	Destructor for size 4 (b)
+	Destructor for size 0 (a)
 
-T5: Normal constructor a (4) and b (2). Then move operator from a to b, leaving a empty with size 0 and b having size 4. No leaks should happen.
+T4:
+	Constructor for size 4 (a)
+	Constructor for size 2 (b)
+	Copy assign for size 4
+	Copy constructor for size 4 (temp)
+	Destructor for size 4 (temp)
+	Print Buffer for size 4 (a)
+	Print Buffer for size 4 (b)
+	Destructor for size 4 (b)
+	Destructor for size 4 (a)
 
-T6: Normal constructor and then copy assignment operator called but nothing happens.
+T5:
+	Constructor for size 4 (a)
+	Constructor for size 2 (b)
+	Move assign for size 4
+	Print Buffer for size 0 (a)
+	Print Buffer for size 4 (b)
+	Destructor for size 4 (b)
+	Destructor for size 0 (a)
 
-T7: Normal constructor for e.
+T6:
+	Constructor for size 4 (a)
+	Copy assign for size 4
+	Copy constructor for size 4 (temp)
+	Destructor for size 4 (temp)
+	Print Buffer for size 4
+	Destructor for size 4 (a)
+	
+T7:
+	Constructor for size 8 (e)
+	Print Buffer for size 8
+	Destructor for size 8
 
-T8: I predict a Normal constructor for 0 and move to vec. Then a move operator for this 0 and construction of 1 -> move to vec. Then move of those 2 and construction of 2 -> move to vec. Then simple construction of 3 -> move to vec.
-
-T9: This one, since memory is being reserved earlier, shouldn't do unnecessary moves! So, normal construction -> move to vec for all of them and no unnecessary moves.
+T8:
+	Constructor for size 0 (0)
+	Move constructor for size 0 (0)
+	Move constructor for size 0 (0)
+	Destructor for size 0 (0)
+	Constructor for size 1 (1)
+	Move constructor for size 1 (1)
+	Move constructor for size 0 (0)
+	Move constructor for size 1 (1)
+	Constructor for size 2 (2)
+	Move constructor for size 2 (2)
+	Destructor for size 0 (0)
+	Destructor for size 0 (1)
+	Constructor for size 3 (3)
+	Move constructor for size 3 (3)
+	Destructor for size 0 (3)
+	Destructor for size 0 (2)
+	Destructor for size 0 (1)
+	Destructor for size 0 (0)
+	Destructor for size 3 (3)
+	Destructor for size 2 (2)
+	Destructor for size 1 (1)
+	Destructor for size 0 (0)
+	
+T9:
+	Constructor for size 0 (0)
+	Move constructor for size 0 (0)
+	Destructor for size 0 (0)
+	Constructor for size 1 (1)
+	Move constructor for size 1 (1)
+	Destructor for size 0 (1)
+	Constructor for size 2 (2)
+	Move constructor for size 2 (2)
+	Destructor for size 0 (2)
+	Constructor for size 3 (3)
+	Move constructor for size 3 (3)
+	Destructor for size 0 (3)
+	Destructor for size 3 (3)
+	Destructor for size 2 (2)
+	Destructor for size 1 (1)
+	Destructor for size 0 (0)
