@@ -19,9 +19,11 @@ Buffer::Buffer(const Buffer& other) :
 	std::copy_n(other.data_, other.size_, data_);
 }
 
-Buffer::Buffer(Buffer&& other) noexcept {
+Buffer::Buffer(Buffer&& other) noexcept :
+	data_(std::exchange(other.data_, nullptr)),
+	size_(std::exchange(other.size_, 0))
+{
 	std::printf("[Buffer] Move constructor (size %zu)\n", other.size_);
-	Buffer::swap(other);
 }
 
 Buffer&	Buffer::operator=(const Buffer& other) {
@@ -38,10 +40,8 @@ Buffer& Buffer::operator=(Buffer&& other) noexcept {
 
 	delete[] data_;
 
-	data_ = other.data_;
-	size_ = other.size_;
-	other.data_ = nullptr;
-	other.size_ = 0;
+	data_ = std::exchange(other.data_, nullptr);
+	size_ = std::exchange(other.size_, 0);
 
 	return *this;
 }
