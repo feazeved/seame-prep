@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
+#include <cstring>
 
 
 void	print(const Buffer& b) {
@@ -31,11 +32,12 @@ int	main() {
 		print(b);
 
 		assert(a.data() != b.data());
+		assert(!std::memcmp(a.data(), b.data(), a.size()));
 	}
 	std::printf("\n--- T3 ---\n");
 	{
 		Buffer a{ 4 };
-		const std::uint8_t* p = a.data();
+		[[maybe_unused]] const std::uint8_t* p = a.data();
 
 		Buffer b{ std::move(a) };
 
@@ -57,7 +59,7 @@ int	main() {
 
 		assert(a.size() == b.size());
 		assert(a.data() != b.data());
-		assert(a.data()[0] == b.data()[0]);
+		assert(!std::memcmp(a.data(), b.data(), a.size()));
 	}
 	std::printf("\n--- T5 ---\n");
 	{
