@@ -1,10 +1,10 @@
+#include "Buffer.hpp"
+
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
 #include <utility>
 #include <new>
-
-#include "Buffer.hpp"
 
 Buffer::Buffer(std::size_t n) : size_(n) {
 	std::printf("[Buffer] Constructor (size %zu)\n", size_);
@@ -60,6 +60,6 @@ void				Buffer::swap(Buffer& other) noexcept {
 	other.data_ = std::exchange(data_, other.data_);
 }
 
-[[nodiscard]] std::size_t			Buffer::size() const noexcept { return size_; }
-[[nodiscard]] uint8_t*				Buffer::data() noexcept { return data_; }
-[[nodiscard]] const uint8_t*		Buffer::data() const noexcept { return data_; }
+std::size_t			Buffer::size() const noexcept { return size_; }
+uint8_t*				Buffer::data() noexcept { return data_; }
+const uint8_t*		Buffer::data() const noexcept { return data_; }
