@@ -1,7 +1,7 @@
 Predictions of what will happen in each test case line by line.
 
 T1:
-	Constrctor for size 4
+	Constructor for size 4
 	Print Buffer of size 4
 	Destructor of size 4
 

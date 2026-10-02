@@ -5,5 +5,3 @@
 -Wshadow
 -Wconversion
 -Wsign-conversion
--fno-exceptions
--fno-rtti
