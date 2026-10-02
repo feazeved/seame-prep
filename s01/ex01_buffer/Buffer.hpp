@@ -12,11 +12,11 @@ public:
 	Buffer& operator=(Buffer&& other) noexcept;
 	~Buffer();
 
-	void				swap(Buffer& other) noexcept;
+	void							swap(Buffer& other) noexcept;
 
-	std::size_t			size() const noexcept;
-	uint8_t*			data() noexcept;
-	const uint8_t*		data() const noexcept;
+	[[nodiscard]] std::size_t		size() const noexcept;
+	[[nodiscard]] uint8_t*			data() noexcept;
+	[[nodiscard]] const uint8_t*	data() const noexcept;
 
 private:
 	uint8_t*		data_ = nullptr;
