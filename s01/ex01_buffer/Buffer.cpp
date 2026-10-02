@@ -7,20 +7,16 @@
 #include <new>
 
 Buffer::Buffer(std::size_t n) :
-	data_(new (std::nothrow) std::uint8_t[n]()),
+	data_(new std::uint8_t[n]()),
 	size_(n)
 {
-	if (!data_)
-		std::abort();
 	std::printf("[Buffer] Constructor (size %zu)\n", size_);
 }
 
 Buffer::Buffer(const Buffer& other) :
-	data_(new (std::nothrow) std::uint8_t[other.size_]),
+	data_(new std::uint8_t[other.size_]),
 	size_(other.size_)
 {
-	if (!data_)
-		std::abort();
 	std::printf("[Buffer] Copy constructor (size %zu)\n", size_);
 	std::copy_n(other.data_, other.size_, data_);
 }
