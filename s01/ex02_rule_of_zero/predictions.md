@@ -43,3 +43,4 @@ T4:
 	destruction Buffer a
 
 I predict all assertions will pass.
+Also, it's important to note that since this wrapper class is following a rule of 0 - there is only a constructor and all other special constructions, moves and assignments are created by the compiller - the only lines that print are in basic construction and in "print" lines.
