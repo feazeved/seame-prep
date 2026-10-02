@@ -6,13 +6,15 @@
 #include <array>
 #include <algorithm>
 
+void	experiment();
+
 int main() {
 	std::printf("--- T1 ---\n");
 	{
 		FileDescriptor	fd{ "/dev/urandom", O_RDONLY };
 
 		constexpr std::int32_t toRead = 16;
-		std::array<std::uint8_t, toRead + 1>	arr{};
+		std::array<std::uint8_t, toRead>	arr;
 
 		fd.read_exact(arr.data(), toRead);
 
@@ -20,6 +22,6 @@ int main() {
 	}
 	std::printf("\n--- T2 ---\n");
 	{
-		
+		experiment();
 	}
 }
