@@ -1,10 +1,8 @@
 #include "Buffer.hpp"
 
 #include <cstdio>
-#include <cstdlib>
 #include <algorithm>
 #include <utility>
-#include <new>
 
 Buffer::Buffer(std::size_t n) :
 	data_(new std::uint8_t[n]()),
