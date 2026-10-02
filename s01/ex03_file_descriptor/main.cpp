@@ -19,6 +19,7 @@ int main() {
 		fd.read_exact(arr.data(), toRead);
 
 		std::for_each_n(arr.data(), arr.size(), [](uint8_t byte) { std::printf("%02x ", byte); });
+		std::printf("\n");
 	}
 	std::printf("\n--- T2 ---\n");
 	{
