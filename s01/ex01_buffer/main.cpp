@@ -9,7 +9,7 @@
 
 void	print(const Buffer& b) {
 	std::printf("Buffer of size: %zu\n", b.size());
-	std::for_each_n(b.data(), b.size(), [](uint8_t value) { std::printf("%d ", value); });
+	std::for_each_n(b.data(), b.size(), [](std::uint8_t value) { std::printf("%d ", value); });
 	std::printf("\n");
 }
 
@@ -19,8 +19,8 @@ int	main() {
 	std::printf("--- T1 ---\n");
 	{
 		Buffer a{ 4 };
-		for (uint8_t i = 0; static_cast<std::size_t>(i) < a.size(); i++)
-			a.data()[i] = i;
+		for (std::size_t i = 0; i < a.size(); i++)
+			a.data()[i] = static_cast<std::uint8_t>(i);
 		print(a);
 	}
 	std::printf("\n--- T2 ---\n");

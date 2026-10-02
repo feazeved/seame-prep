@@ -6,18 +6,22 @@
 #include <utility>
 #include <new>
 
-Buffer::Buffer(std::size_t n) : size_(n) {
-	std::printf("[Buffer] Constructor (size %zu)\n", size_);
-	data_ = new (std::nothrow) uint8_t[n]();
+Buffer::Buffer(std::size_t n) :
+	data_(new (std::nothrow) std::uint8_t[n]()),
+	size_(n)
+{
 	if (!data_)
 		std::abort();
+	std::printf("[Buffer] Constructor (size %zu)\n", size_);
 }
 
-Buffer::Buffer(const Buffer& other) : size_(other.size_) {
-	std::printf("[Buffer] Copy constructor (size %zu)\n", size_);
-	data_ = new (std::nothrow) uint8_t[other.size_];
+Buffer::Buffer(const Buffer& other) :
+	data_(new (std::nothrow) std::uint8_t[other.size_]),
+	size_(other.size_)
+{
 	if (!data_)
 		std::abort();
+	std::printf("[Buffer] Copy constructor (size %zu)\n", size_);
 	std::copy_n(other.data_, other.size_, data_);
 }
 
@@ -61,5 +65,5 @@ void				Buffer::swap(Buffer& other) noexcept {
 }
 
 std::size_t			Buffer::size() const noexcept { return size_; }
-uint8_t*				Buffer::data() noexcept { return data_; }
-const uint8_t*		Buffer::data() const noexcept { return data_; }
+std::uint8_t*				Buffer::data() noexcept { return data_; }
+const std::uint8_t*		Buffer::data() const noexcept { return data_; }

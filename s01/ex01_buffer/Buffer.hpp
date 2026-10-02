@@ -15,10 +15,10 @@ public:
 	void							swap(Buffer& other) noexcept;
 
 	[[nodiscard]] std::size_t		size() const noexcept;
-	[[nodiscard]] uint8_t*			data() noexcept;
-	[[nodiscard]] const uint8_t*	data() const noexcept;
+	[[nodiscard]] std::uint8_t*			data() noexcept;
+	[[nodiscard]] const std::uint8_t*	data() const noexcept;
 
 private:
-	uint8_t*		data_ = nullptr;
+	std::uint8_t*		data_ = nullptr;
 	std::size_t		size_ = 0;
 };
