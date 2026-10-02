@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <algorithm>
 #include <cstring>
+#include <cstdint>
 
 void	print(const Buffer& b) {
 	std::printf("Buffer of size: %zu\n", b.size());
@@ -32,7 +33,7 @@ int main() {
 
 		std::fill_n(a.data(), a.size(), 42);
 
-		[[maybe_unused]] const uint8_t*	p = a.data();
+		[[maybe_unused]] const std::uint8_t*	p = a.data();
 
 		Buffer	b{ std::move(a) };
 
@@ -65,6 +66,8 @@ int main() {
 
 		std::fill_n(a.data(), a.size(), 42);
 
+		[[maybe_unused]] const std::uint8_t*	p = a.data();
+
 		b = std::move(a);
 
 		print(a);
@@ -72,5 +75,6 @@ int main() {
 
 		assert(a.size() == 0);
 		assert(b.size() == 4);
+		assert(b.data() == p);
 	}
 }
