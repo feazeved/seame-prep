@@ -20,6 +20,12 @@ FileDescriptor::FileDescriptor(const char* path, int flags) :
 	std::printf("open %s -> fd %d\n", path, fd_);
 }
 
+FileDescriptor::FileDescriptor(int fd) noexcept :
+	fd_(fd)
+{
+	std::printf("taking ownership in already open fd %d\n", fd);
+}
+
 FileDescriptor::~FileDescriptor() {
 	if (fd_ == -1)
 		return ;

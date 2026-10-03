@@ -5,7 +5,8 @@
 
 class FileDescriptor {
 public:
-	FileDescriptor(const char* path, int flags);
+	explicit FileDescriptor(const char* path, int flags);
+	explicit FileDescriptor(int fd) noexcept;
 	~FileDescriptor();
 	FileDescriptor(const FileDescriptor&) = delete;
 	FileDescriptor& operator=(const FileDescriptor&) = delete;
