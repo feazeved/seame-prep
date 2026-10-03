@@ -28,7 +28,7 @@ Here, we can see that our executable depends on these shared libraries. They are
 1. libstdc++ (located in "/lib/aarch64-linux-gnu/libstdc++.so.6") -> It provides implementations of things such as std::string, std::vector, std::iostream, std::exception etc.
 2. libgcc -> It provides support for things related to exception handling, stack unwinding, certain runtime operations etc.
 3. libc -> It provides the standard C library. Things like printf, malloc, free, memcpy, strlen etc are linked from here.
-4. libm -> Despite not being in "NEEDED", it was still linked, as you can see from ldd and strace outputs. It provides functions related to mathematics. Such as sin(), cos(), tan(), sqrt(), pow()...
+4. libm -> Despite not being in "NEEDED", it was still linked, as you can see from ldd and strace outputs. It provides functions related to mathematics. Such as sin(), cos(), tan(), sqrt(), pow()... libm gets loaded because libstdc++ needs it! You can run "readelf -d" on libstdc++.so.6 to see that.
 
 And if you pay attention to strace's first output line, it references "/etc/ld.so.cache". This is the dynamic's linker cache. It keeps stored the location of these shared libraries so that the dynamic linker does not need to search every directory one by one.
 
