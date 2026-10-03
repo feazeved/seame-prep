@@ -40,13 +40,15 @@ int main() {
 		FileDescriptor	reader(pipefd[0]);
 
 		std::thread	writer([fd = pipefd[1]]() {
-			::write(fd, "AB", 2);
+			ssize_t	bytes = ::write(fd, "AB", 2);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-			::write(fd, "CD", 2);
+			bytes += ::write(fd, "CD", 2);
 
 			::close(fd);
+
+			assert(bytes == 4);
 		});
 
 		std::uint8_t	buf[4] = {};
@@ -59,5 +61,39 @@ int main() {
 		assert(buf[3] == 'D');
 
 		writer.join();
+	}
+	std::printf("\n--- T4 ---\n");
+	{
+		int	pipefd[2];
+
+		if (::pipe(pipefd) == -1)
+			throw std::system_error(errno, std::generic_category());
+
+		FileDescriptor	reader(pipefd[0]);
+
+		std::thread	writer([fd = pipefd[1]]() {
+			ssize_t	bytes = ::write(fd, "AB", 2);
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+			::close(fd);
+
+			static_cast<void>(bytes);
+			assert(bytes == 2);
+		});
+
+		std::uint8_t	buf[4] = {};
+
+		[[maybe_unused]] bool	caught = false;
+
+		try {
+			reader.read_exact(buf, 4);
+		} catch (...) {
+			caught = true;
+		}
+
+		writer.join();
+
+		assert(caught == true);
 	}
 }
