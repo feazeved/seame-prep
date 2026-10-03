@@ -2,6 +2,7 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <cstdint>
 #include <cstddef>
 #include <cstdio>
@@ -48,14 +49,19 @@ int		FileDescriptor::get() const noexcept { return fd_; }
 
 void	FileDescriptor::read_exact(std::uint8_t* out, std::size_t n) {
 	std::size_t		totalBytesRead = 0;
-	std::int64_t	tempRead;
 	std::size_t		toRead = n;
 
+	errno = 0;
 	while (totalBytesRead != n) {
-		tempRead = ::read(fd_, out, toRead);
-		if (tempRead == -1)
+		ssize_t	tempRead = ::read(fd_, &out[totalBytesRead], toRead);
+		if (tempRead == 0)
+			return ;
+		else if (tempRead == -1) {
+			if (errno == EINTR)
+				continue ;
 			throw std::system_error(errno, std::generic_category());
-		totalBytesRead += static_cast<std::size_t>(tempRead);
+		}
 		toRead -= static_cast<std::size_t>(tempRead);
+		totalBytesRead += static_cast<std::size_t>(tempRead);
 	}
 }

@@ -2,6 +2,9 @@
 
 #include <fcntl.h>
 #include <memory>
+#include <cstdio>
+#include <cstdint>
+#include <utility>
 
 void	experiment() {
 	auto a = std::make_unique<FileDescriptor>("/dev/urandom", O_RDONLY);
