@@ -9,6 +9,7 @@
 #include <cerrno>
 #include <system_error>
 #include <utility>
+#include <stdexcept>
 
 // ----- Special Member Functions -----
 
@@ -55,19 +56,16 @@ int		FileDescriptor::get() const noexcept { return fd_; }
 
 void	FileDescriptor::read_exact(std::uint8_t* out, std::size_t n) {
 	std::size_t		totalBytesRead = 0;
-	std::size_t		toRead = n;
 
-	errno = 0;
 	while (totalBytesRead != n) {
-		ssize_t	tempRead = ::read(fd_, &out[totalBytesRead], toRead);
+		ssize_t	tempRead = ::read(fd_, &out[totalBytesRead], n - totalBytesRead);
 		if (tempRead == 0)
-			return ;
+			throw std::runtime_error("EOF found before reading exacly n bytes");
 		else if (tempRead == -1) {
 			if (errno == EINTR)
 				continue ;
 			throw std::system_error(errno, std::generic_category());
 		}
-		toRead -= static_cast<std::size_t>(tempRead);
 		totalBytesRead += static_cast<std::size_t>(tempRead);
 	}
 }
