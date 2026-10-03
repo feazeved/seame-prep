@@ -19,7 +19,8 @@ Experiment: I tried removing std::exchange from move constructor initialization 
 
 I predict FD a will have fd_ 3 from "/dev/urandom". Then, b will have fd_ 3 as well but will fall out of scope and CLOSE fd 3. But, a will continue with fd_ == 3.
 Sequentially, FD c will have fd_ 3 from "/dev/zero". But then, a.reset() will call a's destructor (which closes fd 3 that now was c's).
-Therefore, c.read_exact will have a closed fd as reference and read will fail with -1 -> throwing a system_error EBADFD.
+Therefore, c.read_exact will have a closed fd as reference and read will fail with -1 -> throwing a system_error EBADF. This is even worse than it looks when you realize that the bug was present in the special move member function of FD bbut the problem and crash only happened far after that, during a read!
+There is a log.txt file showing the error.
 
 This is exaclty what happened.
 
