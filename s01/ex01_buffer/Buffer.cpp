@@ -23,7 +23,7 @@ Buffer::Buffer(Buffer&& other) noexcept :
 	data_(std::exchange(other.data_, nullptr)),
 	size_(std::exchange(other.size_, 0))
 {
-	std::printf("[Buffer] Move constructor (size %zu)\n", other.size_);
+	std::printf("[Buffer] Move constructor (size %zu)\n", size_);
 }
 
 Buffer&	Buffer::operator=(const Buffer& other) {
