@@ -1,20 +1,3 @@
-fesuassuna@seame-vm:~/Projects/seame-prep/s01/ex03_file_descriptor$ g++ -std=c++20 -Wall -Wextra -Wpedantic -Werror -fno-rtti -g -fsanitize=address,undefined main.cpp FileDescriptor.cpp experiment.cpp -o test
-
-fesuassuna@seame-vm:~/Projects/seame-prep/s01/ex03_file_descriptor$ ./test
---- T1 ---
-open /dev/urandom -> fd 3
-64 79 f1 12 5f 66 e1 00 7d 9e f4 93 28 ee d4 87
-close fd 3
-
---- T2 ---
-open /dev/urandom -> fd 3
-close fd 3
-open /dev/zero -> fd 3
-read from c OK
-close fd 3
-
-fesuassuna@seame-vm:~/Projects/seame-prep/s01/ex03_file_descriptor$ g++ -std=c++20 -Wall -Wextra -Wpedantic -Werror -fno-rtti -g main.cpp FileDescriptor.cpp experiment.cpp -o test
-
 fesuassuna@seame-vm:~/Projects/seame-prep/s01/ex03_file_descriptor$ strace -e trace=openat,close,read ./test
 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
 close(3)                                = 0
@@ -33,8 +16,9 @@ close(3)                                = 0
 --- T1 ---
 openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_CLOEXEC) = 3
 open /dev/urandom -> fd 3
-read(3, "\377\3661\246\252U\313\265h\251\2041\267\277\271g", 16) = 16
-ff f6 31 a6 aa 55 cb b5 68 a9 84 31 b7 bf b9 67
+read(3, "\r\274\276s\235\201\250J\356\203^\351\25\7\"\30", 16) = 16
+read(3, "", 0)                          = 0
+40 42 91 ee b2 f8 00 00 00 60 63 ee b2 f8 00 00
 close(3)                                = 0
 close fd 3
 
@@ -45,8 +29,11 @@ close(3)                                = 0
 close fd 3
 openat(AT_FDCWD, "/dev/zero", O_RDONLY|O_CLOEXEC) = 3
 open /dev/zero -> fd 3
-read(3, "\0\0\0\0", 4)                  = 4
-read from c OK
 close(3)                                = 0
 close fd 3
-+++ exited with 0 +++
+read(3, 0xfffff5e4d244, 4)              = -1 EBADF (Bad file descriptor)
+terminate called after throwing an instance of 'std::system_error'
+  what():  Bad file descriptor
+--- SIGABRT {si_signo=SIGABRT, si_code=SI_TKILL, si_pid=58819, si_uid=1000} ---
++++ killed by SIGABRT (core dumped) +++
+Aborted (core dumped)
