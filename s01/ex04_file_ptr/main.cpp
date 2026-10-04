@@ -14,7 +14,7 @@ using FilePtr = std::unique_ptr<std::FILE, FileCloser>;
 FilePtr	open_file(const char* path, const char* mode) {
 	std::FILE* fptr = std::fopen(path, mode);
 	if (!fptr)
-		throw std::system_error(errno, std::generic_category());
+		throw std::system_error(errno, std::generic_category(), path);
 	return FilePtr(fptr);
 }
 
@@ -26,15 +26,14 @@ int	main() {
 		constexpr std::size_t	size = 16;
 		std::array<std::uint8_t, size>	arr{};
 
+		std::printf("Reading 16 bytes into arr...\n");
 
-		std::size_t	n = std::fread(
+		[[maybe_unused]] std::size_t	n = std::fread(
 			arr.data(),
 			sizeof(arr[0]),
 			arr.size(),
 			fptr.get()
 		);
-
-		std::printf("Reading 16 bytes into arr...\n");
 
 		assert(n == size);
 
