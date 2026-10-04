@@ -16,9 +16,8 @@ close(3)                                = 0
 --- T1 ---
 openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_CLOEXEC) = 3
 open /dev/urandom -> fd 3
-read(3, "\r\274\276s\235\201\250J\356\203^\351\25\7\"\30", 16) = 16
-read(3, "", 0)                          = 0
-40 42 91 ee b2 f8 00 00 00 60 63 ee b2 f8 00 00
+read(3, "Y\366\234\v\351\243\376\25RT>\335{\6\27\252", 16) = 16
+59 f6 9c 0b e9 a3 fe 15 52 54 3e dd 7b 06 17 aa
 close(3)                                = 0
 close fd 3
 
@@ -31,9 +30,9 @@ openat(AT_FDCWD, "/dev/zero", O_RDONLY|O_CLOEXEC) = 3
 open /dev/zero -> fd 3
 close(3)                                = 0
 close fd 3
-read(3, 0xfffff5e4d244, 4)              = -1 EBADF (Bad file descriptor)
+read(3, 0xffffffa82070, 4)              = -1 EBADF (Bad file descriptor)
 terminate called after throwing an instance of 'std::system_error'
   what():  Bad file descriptor
---- SIGABRT {si_signo=SIGABRT, si_code=SI_TKILL, si_pid=58819, si_uid=1000} ---
+--- SIGABRT {si_signo=SIGABRT, si_code=SI_TKILL, si_pid=75606, si_uid=1000} ---
 +++ killed by SIGABRT (core dumped) +++
 Aborted (core dumped)
