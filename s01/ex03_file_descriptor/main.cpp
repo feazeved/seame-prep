@@ -10,6 +10,7 @@
 #include <cassert>
 #include <thread>
 #include <chrono>
+#include <stdexcept>
 
 void	experiment();
 
@@ -88,7 +89,7 @@ int main() {
 
 		try {
 			reader.read_exact(buf, 4);
-		} catch (...) {
+		} catch (const std::runtime_error& e) {
 			caught = true;
 		}
 
