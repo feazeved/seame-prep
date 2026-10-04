@@ -3,6 +3,6 @@
 #include <cstdio>
 
 void FileCloser::operator()(std::FILE* fp) const noexcept {
-	if (fp)
-		std::fclose(fp);
+	if (std::fclose(fp) == EOF)
+		std::fprintf(stderr, "warning: fclose failed\n");
 }
